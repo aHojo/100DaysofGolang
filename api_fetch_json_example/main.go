@@ -1,11 +1,27 @@
 package main
 
 import (
-	"fmt"
 	"go/bootcamp/api_fetch_json_example/github"
+	"html/template"
 	"log"
 	"os"
+	"time"
 )
+
+const templ = `{{ .TotalCount }} issues
+{{ range .Items }}----------------------
+Number: {{ .Number }}
+User:   {{ .User.Login }}
+Title:  {{ .Title | printf "%.64s" }}
+Age:    {{ .CreatedAt | daysAgo }} days
+{{ end }}
+`
+
+func daysAgo(t time.Time) int {
+	return int(time.Since(t).Hours() / 24)
+}
+
+var report = template.Must(template.New("report").Funcs(template.FuncMap{"daysAgo": daysAgo}).Parse(templ))
 
 func main() {
 
@@ -15,9 +31,13 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("%d issues:\n", result.TotalCount)
-
-	for _, item := range result.Items {
-		fmt.Printf("#%-5d %9.9s %.55s\n", item.Number, item.User.Login, item.Title)
+	if err := report.Execute(os.Stdout, result); err != nil {
+		log.Fatal(err)
 	}
+
+	// fmt.Printf("%d issues:\n", result.TotalCount)
+
+	// for _, item := range result.Items {
+	// 	fmt.Printf("#%-5d %9.9s %.55s\n", item.Number, item.User.Login, item.Title)
+	// }
 }
