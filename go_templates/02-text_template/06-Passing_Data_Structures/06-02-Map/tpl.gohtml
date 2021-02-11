@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+</head>
+<body>
+<h1>Sages by Rank:</h1>
+<ol>
+    {{ range .}} <!-- only give value -->
+    <li>{{.}}</li>
+    {{end}}
+</ol>
+
+<h1>Again, using Variables</h1>
+  {{ range $key, $value := .}} <!--  gives key,value -->
+      <li>{{$key}} > {{$value}}</li>
+  {{end}}
+</body>
+</html>
