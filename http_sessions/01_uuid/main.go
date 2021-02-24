@@ -23,8 +23,8 @@ func index(w http.ResponseWriter, req *http.Request) {
 		cookie = &http.Cookie{
 			Name:  "session",
 			Value: id.String(),
-			// Secure: true,
-			HttpOnly: true,
+			// Secure: true, // only set if https
+			HttpOnly: true, // can't access this with javascript.
 			Path:     "/",
 		}
 		http.SetCookie(w, cookie)
