@@ -10,4 +10,5 @@ require (
 	github.com/inancgumus/screen v0.0.0-20190314163918-06e984b86ed3
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/mattn/go-runewidth v0.0.10
+	github.com/satori/go.uuid v1.2.0 // indirect
 )
