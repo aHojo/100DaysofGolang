@@ -1,9 +1,10 @@
 package main
 
 import (
-	"github.com/satori/go.uuid"
 	"html/template"
 	"net/http"
+
+	uuid "github.com/satori/go.uuid"
 )
 
 type user struct {
@@ -32,7 +33,7 @@ func index(w http.ResponseWriter, req *http.Request) {
 	// get cookie
 	c, err := req.Cookie("session")
 	if err != nil {
-		sID, _ := uuid.NewV4()
+		sID := uuid.NewV4()
 		c = &http.Cookie{
 			Name:  "session",
 			Value: sID.String(),
